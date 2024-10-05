@@ -1,0 +1,144 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.topic {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.deal-input,
+.data-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.deal-input {
+    width: 65%;
+}
+
+.data-input {
+    width: 30%;
+}
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto; 
+}
+
+.todo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.todo-item:hover {
+    background-color: #f0f0f0;
+}
+
+.todo-item.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.delete-button,
+.complete-button {
+    margin-left: 10px;
+    background-color: #f5a623;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button {
+    background-color: rgb(209, 25, 25);
+}
+
+.complete-button {
+    background-color: #4caf50;
+}
+
+.delete-button:hover,
+.complete-button:hover {
+    background-color: #333;
+}
+
+.button-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button-add {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.button-add:hover {
+    background-color: #0056b3;
+}
+
+.delet-buuton {
+    background-color: rgb(209, 25, 25);
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-size: 12px;
+    height: 30px;
+}
+
+.header,
+.button-bar {
+    position: sticky;
+    top: 0;
+    background-color: #f7f7f7;
+    z-index: 10;
+    padding-top: 10px;
+}

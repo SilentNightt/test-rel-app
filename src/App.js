@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import TodoList from "./pages/todo-list/index.jsx";
+import RandomQuote from "./pages/random-quote/index.jsx";
+import Home from "./pages/Home/Home.jsx";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Routes>
+          {/* Задача номер 3 */}
+          <Route path="/" element={<Home />} />
+          <Route path="/todo" element={<TodoList />} />
+          <Route path="/random-quote" element={<RandomQuote />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
