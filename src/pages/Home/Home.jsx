@@ -20,12 +20,6 @@ function Home() {
             <p>Задача по выбору номер 3</p>
           </div>
         </Link>
-        <Link to="/blog" className="card">
-          <div className="card-content">
-            <h2>Блог</h2>
-            <p>Задача на дополнительные баллы</p>
-          </div>
-        </Link>
       </div>
     </div>
   );
