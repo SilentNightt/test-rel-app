@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; // Импортируем Axios
 import "../random-quote/random-quote.css";
 
 function RandomQuote() {
@@ -19,34 +18,19 @@ function RandomQuote() {
     "#cc8d14",
   ];
 
-  const fetchQuote = async () => {
+  const fetchQuote = () => {
     setLoading(true);
-    setError(null); // Сброс ошибки перед новым запросом
+    setError(null);
 
-    const url =
-      "https://api.forismatic.com/api/1.0/?method=getQuote&key=random&format=jsonp&lang=ru&jsonp=?";
+    // Как ключ для JSONP
+    const callbackName = "quoteCallback" + Math.floor(Math.random() * 100000);
+    const url = `https://api.forismatic.com/api/1.0/?method=getQuote&key=random&format=jsonp&lang=ru&jsonp=${callbackName}`;
 
-    try {
-      const response = await axios.get(url);
-      if (response.data && response.data.quoteText) {
-        // Обрабатываем строку ответа
-        const responseText = `${response.data.quoteText} ${
-          response.data.quoteAuthor
-            ? `- ${response.data.quoteAuthor}`
-            : "Неизвестный автор"
-        }`;
-
-        // Извлекаем цитату и автора
-        const quoteParts = responseText.split("http://");
-        const quoteText = quoteParts[0].trim();
-        const quoteAuthor =
-          quoteParts.length > 1 ? quoteParts[1] : "Неизвестный автор";
-
-        setQuote(quoteText);
-        setAuthor(quoteAuthor);
-
-        // Смена цвета на случайный
-        let newColorIndex;
+    window[callbackName] = (response) => {
+      if (response && response.quoteText) {
+        setQuote(response.quoteText);
+        setAuthor(response.quoteAuthor ? response.quoteAuthor : "Неизвестный");
+        let newColorIndex = "";
         do {
           newColorIndex = Math.floor(Math.random() * colors.length);
         } while (colors[newColorIndex] === color);
@@ -55,15 +39,22 @@ function RandomQuote() {
       } else {
         setError("Не удалось получить корректную цитату. Попробуйте еще раз.");
       }
-    } catch (err) {
-      console.error("Ошибка при получении цитаты:", err);
-      setError("Не удалось загрузить цитату. Попробуйте еще раз.");
-    }
+      setLoading(false);
+      delete window[callbackName];
+      document.body.removeChild(script);
+    };
 
-    setLoading(false);
+    const script = document.createElement("script");
+    script.src = url;
+    script.onerror = () => {
+      setError("Не удалось загрузить цитату. Попробуйте еще раз.");
+      setLoading(false);
+      delete window[callbackName];
+      document.body.removeChild(script);
+    };
+    document.body.appendChild(script);
   };
 
-  // Получение первой цитаты при монтировании компонента
   useEffect(() => {
     fetchQuote();
   }, []);
@@ -73,7 +64,7 @@ function RandomQuote() {
       className="container-fluid random-quote-container"
       style={{ backgroundColor: color }}
     >
-      <h1 className="text-primary random-quote-header">Случайные Цитаты!</h1>
+      <h1 className="text-primary random-quote-header">Случайные Цитаты</h1>
       <div className="well random-quote-well">
         {error ? (
           <p className="error-text">{error}</p>

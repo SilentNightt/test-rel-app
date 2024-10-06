@@ -61,8 +61,8 @@ const TodoList = observer(() => {
               key={index}
               className={`todo-item ${todo.completed ? "completed" : ""}`}
             >
-              <div>{todo.deal}</div>
-              <div>{todo.date}</div>
+              <div className="text">{todo.deal}</div>
+              <div className="text">{todo.date}</div>
               <button
                 onClick={() => todoStore.completeTodoItem(index)}
                 className="complete-button"
